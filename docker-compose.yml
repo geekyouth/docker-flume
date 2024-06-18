@@ -17,6 +17,7 @@ services:
       - "44444:44444"
     volumes:
       - ./fixtures/source.conf:/opt/flume-config/flume.conf
+      - ./_docker-data/source/log:/tmp/flume-log
     environment:
       - FLUME_AGENT_NAME=docker
     networks:
@@ -27,6 +28,7 @@ services:
     volumes:
       - ./fixtures/sink.conf:/opt/flume-config/flume.conf
       - ./output:/var/tmp/output
+      - ./_docker-data/sink/log:/tmp/flume-log
     environment:
       - FLUME_AGENT_NAME=docker
     ports:

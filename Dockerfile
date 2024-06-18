@@ -9,6 +9,7 @@ RUN mkdir /opt/flume \
     && wget -qO- https://archive.apache.org/dist/flume/${FLUME_VERSION}/apache-flume-${FLUME_VERSION}-bin.tar.gz \
           | tar zxvf - -C /opt/flume --strip 1
 
+ADD log4j2.xml /opt/flume/conf/log4j2.xml
 ADD start-flume.sh /opt/flume/bin/start-flume
 
 ENTRYPOINT [ "start-flume" ]
