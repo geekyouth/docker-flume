@@ -1,22 +1,35 @@
-version: '3'
+networks:
+  fullstack:
+    name: fullstack
+    ipam:
+      config:
+        - subnet: 172.16.1.0/24
 
 services:
-
   source:
-    image: flume:latest
+    image: geekyouth/flume:1.10.1
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        FLUME_VERSION: 1.10.1
     ports:
-     - "44444:44444"
+      - "44444:44444"
     volumes:
-     - ./fixtures/source.conf:/opt/flume-config/flume.conf
+      - ./fixtures/source.conf:/opt/flume-config/flume.conf
     environment:
-    - FLUME_AGENT_NAME=docker
-    links:
-      - "sink:sink"
+      - FLUME_AGENT_NAME=docker
+    networks:
+      fullstack:
 
   sink:
-    image: flume:latest
+    image: geekyouth/flume:1.10.1
     volumes:
-     - ./fixtures/sink.conf:/opt/flume-config/flume.conf
-     - ./output:/var/tmp/output
+      - ./fixtures/sink.conf:/opt/flume-config/flume.conf
+      - ./output:/var/tmp/output
     environment:
-     - FLUME_AGENT_NAME=docker
+      - FLUME_AGENT_NAME=docker
+    ports:
+      - 4545:4545
+    networks:
+      fullstack:
