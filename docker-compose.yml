@@ -7,7 +7,7 @@ networks:
 
 services:
   source:
-    image: geekyouth/flume:1.10.1
+    image: ghcr.io/geekyouth/flume:1.10.1
     build:
       context: .
       dockerfile: Dockerfile
@@ -23,7 +23,7 @@ services:
       fullstack:
 
   sink:
-    image: geekyouth/flume:1.10.1
+    image: ghcr.io/geekyouth/flume:1.10.1
     volumes:
       - ./fixtures/sink.conf:/opt/flume-config/flume.conf
       - ./output:/var/tmp/output
